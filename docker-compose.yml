@@ -1,0 +1,24 @@
+version: "3.5"
+services:
+  bot-name:
+    ## Dockerfileを同じ階層に用意
+    build: .
+    image: bot-name-image
+    container_name: bot-name
+    environment:
+      - NODE_ENV=production
+    tty: true
+    restart: always
+    volumes:
+      - ./src:/usr/app/src
+      - ./.env:/usr/app/.env
+      - ./tsconfig.json:/usr/app/tsconfig.json
+    command: [sh, -c, yarn compile && yarn start]
+    # ネットワークを構成する場合は追加する
+    # networks:
+    #  - bot-network
+
+# ネットワークを構成する場合は追加する
+# networks:
+#   bot-network:
+#     name: bot_network
